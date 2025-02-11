@@ -16,6 +16,7 @@ cursor.execute("""
         password TEXT
     )
 """)
+
 conn.commit()
 
 # Function to insert a user into the database
