@@ -43,65 +43,66 @@ def display_city():
         city_display.insert(tk.END, f"-{city_name}\n")  # Insert the city name
 
 # Connection and cursor initialization
-con, cur = create_connection()
+if __name__ == "__main__":
+    con, cur = create_connection()
 
-# GUI window creation
-app_window = tk.Tk()
-app_window.title("City List")
+    # GUI window creation
+    app_window = tk.Tk()
+    app_window.title("City List")
 
 
-# Running the tkinter GUI with window size and placing it at the center of the screen
-app_window.geometry("500x400")
-app_window.configure(bg="#f0f8ff")  # Soft blue background
-app_window.resizable(False, False)
-app_window.update_idletasks()
-app_window.eval('tk::PlaceWindow . center')
+    # Running the tkinter GUI with window size and placing it at the center of the screen
+    app_window.geometry("500x400")
+    app_window.configure(bg="#f0f8ff")  # Soft blue background
+    app_window.resizable(False, False)
+    app_window.update_idletasks()
+    app_window.eval('tk::PlaceWindow . center')
 
 
 # Frame to keep the widgets organized
-frame = tk.Frame(app_window, padx=15, pady=15, bg="lightblue") # Frame with padding and background color
-frame.grid(padx=10, pady=10)
+    frame = tk.Frame(app_window, padx=15, pady=15, bg="lightblue") # Frame with padding and background color
+    frame.grid(padx=10, pady=10)
 
 
 # Label to display the list of cities
-label_cities = tk.Label(frame, text="Cities Details:", font=("Arial	", 16, "bold"), bg="Black", fg="LightBlue")
-label_cities.grid(row=0, column=0, columnspan=3, pady=(4, 11), sticky="n")
+    label_cities = tk.Label(frame, text="Cities Details:", font=("Arial	", 16, "bold"), bg="Black", fg="LightBlue")
+    label_cities.grid(row=0, column=0, columnspan=3, pady=(4, 11), sticky="n")
 
 
 # Scrollbar for the text widget
-scrollbar = tk.Scrollbar(frame)
-scrollbar.grid(row=1, column=2, sticky="nsw")
+    scrollbar = tk.Scrollbar(frame)
+    scrollbar.grid(row=1, column=2, sticky="nsw")
 
 # Text widget to display cities with scrollbar
-city_display = tk.Text(frame, width=40, height=12, wrap="word", yscrollcommand=scrollbar.set)
-city_display.grid(row=1, column=0, columnspan=2, pady=5)
+    city_display = tk.Text(frame, width=40, height=12, wrap="word", yscrollcommand=scrollbar.set)
+    city_display.grid(row=1, column=0, columnspan=2, pady=5)
 
 # Configure the scrollbar to work with the text widget
-scrollbar.config(command=city_display.yview)
+    scrollbar.config(command=city_display.yview)
 
 # Label and Entry widget to add a new city
-label_addcity = tk.Label(frame, text="Enter a New City:", font=("Arial", 10,"bold" ), bg="white")
-label_addcity.grid(row=2, column=0, sticky="e", padx=5, pady=5)
+    label_addcity = tk.Label(frame, text="Enter a New City:", font=("Arial", 10,"bold" ), bg="white")
+    label_addcity.grid(row=2, column=0, sticky="e", padx=5, pady=5)
 
-input_city = ttk.Entry(frame, width=30)
-input_city.grid(row=2, column=1, padx=5, pady=5)
+    input_city = ttk.Entry(frame, width=30)
+    input_city.grid(row=2, column=1, padx=5, pady=5)
 
 # Add city name to the database with the button
-add_button = ttk.Button(frame, text="Add City",  command=add_city)
-add_button.grid(row=1, column=3, columnspan=2, padx=5, pady=(0,80), sticky="ew")
+    add_button = ttk.Button(frame, text="Add City",  command=add_city)
+    add_button.grid(row=1, column=3, columnspan=2, padx=5, pady=(0,80), sticky="ew")
 
 # Display cities from the database with the button
-display_button = ttk.Button(frame, text="Show Cities", command=display_city)
-display_button.grid(row=1, column=3, columnspan=2, padx=5, pady=(0), sticky="ew")
+    display_button = ttk.Button(frame, text="Show Cities", command=display_city)
+    display_button.grid(row=1, column=3, columnspan=2, padx=5, pady=(0), sticky="ew")
 
 # Database connection closed when the application window is closed
 #When window is closed, Database connection is closed with the function on_closing
-def on_closing():
-    con.close()
-    app_window.destroy()
+    def on_closing():
+        con.close()
+        app_window.destroy()
 
 
 #Close event binding
-app_window.protocol("WM_DELETE_WINDOW", on_closing)
+    app_window.protocol("WM_DELETE_WINDOW", on_closing)
 
-app_window.mainloop()  # Run the tkinter main loop
+    app_window.mainloop()  # Run the tkinter main loop
